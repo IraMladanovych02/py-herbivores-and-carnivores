@@ -33,17 +33,3 @@ class Carnivore(Animal):
         if isinstance(goal, Herbivore) and not goal.hidden:
             goal.health -= 50
             goal.remove_if_dead()
-
-
-class Herbivore(Animal):
-    def hide(self) -> None:
-        self.hidden = not self.hidden
-
-
-class Carnivore(Animal):
-    @classmethod
-    def bite(cls, goal: Animal) -> None:
-        if isinstance(goal, Herbivore) and not goal.hidden:
-            goal.health -= 50
-            if goal.health <= 0:
-                Animal.alive.remove(goal)
