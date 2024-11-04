@@ -4,11 +4,15 @@ class Animal:
     def __init__(self, name: str, health: int = 100) -> None:
         self.name = name
         self.health = health
-        self.hidden = False  # Set hidden as an instance variable
+        self.hidden = False
         Animal.alive.append(self)
 
-    def __len__(self) -> int:
-        return len(Animal.alive)
+    def __str__(self) -> str:
+        return (
+            f"{{Name: {self.name}, "
+            f"Health: {self.health}, "
+            f"Hidden: {self.hidden}}}"
+        )
 
     def __repr__(self) -> str:
         return (
@@ -28,8 +32,7 @@ class Herbivore(Animal):
 
 
 class Carnivore(Animal):
-    @classmethod
-    def bite(cls, goal: Animal) -> None:
-        if isinstance(goal, Herbivore) and not goal.hidden:
-            goal.health -= 50
-            goal.remove_if_dead()
+    def bite(self, target: Animal) -> None:
+        if isinstance(target, Herbivore) and not target.hidden:
+            target.health -= 50
+            target.remove_if_dead()
